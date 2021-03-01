@@ -1,0 +1,75 @@
+{% extends "view.html" %}
+{% block content %}
+
+<div class="container h-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-10 col-md-8 col-lg-6">
+            <form method="POST" action="">
+                {{ form.hidden_tag() }}
+                <h1 class="text-center display-4 mt-5">Signup</h1>
+                <div class="form-group mt-4">
+                    {{ form.username.label() }}
+
+                    {% if form.username.errors %}
+                        {{ form.username() }}
+                        {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+
+                    {% else %}
+                        {{ form.username(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.email.label() }}
+
+                    {% if form.email.errors %}
+                        {{ form.email() }}
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+
+                    {% else %}
+                        {{ form.email(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.password.label() }}
+
+                    {% if form.password.errors %}
+                        {{ form.password() }}
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+
+                    {% else %}
+                        {{ form.password(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    {{ form.confirm_password.label() }}
+
+                    {% if form.confirm_password.errors %}
+                        {{ form.confirm_password() }}
+                        {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+
+                    {% else %}
+                        {{ form.confirm_password(class="form-control") }}
+                    {% endif %}
+                </div>
+
+                <center>
+                    {{ form.submit(class="btn btn-dark btn-md mt-4 ml-3") }}
+                        <a class="btn btn-dark btn-md mt-4 ml-3" href="{{ url_for("login") }}">Login</a>
+                </center>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
