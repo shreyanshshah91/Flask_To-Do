@@ -1,0 +1,69 @@
+{% extends "view.html" %}
+{% block content %}
+
+    <div class="mt-5 mb-5 container border">
+        {% if current_user.is_authenticated %}
+                <a class="mt-2 btn btn-outline-danger btn-sm" href="{{ url_for("logout") }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for("login") }}">Login</a>
+                <a href="{{ url_for("register") }}">Register</a>
+            {% endif %}
+
+        {% if current_user.is_authenticated %}
+
+            <form class="mt-5 row justify-content-center" action="/task/{{ current_user.id }}/search" method="GET">
+                <input class="w-50 tab" type="text" placeholder="Search for Task" required>
+                <input class="ml-4 btn btn-dark" type="submit" value="Search">
+            </form>
+
+            <form class="mt-5 row justify-content-center" action="/task/{{ current_user.id }}/add-task" method="POST">
+                <input class="w-50 tab" type="text" placeholder="What are you Planning to do?" name="fetch_task" required>
+                <input class="ml-4 btn btn-dark" type="submit" value="Add Task">
+            </form>
+        {% endif %}
+
+        <div class="mt-5 table-responsive">
+        <table class="table row justify-content-center">
+            <tbody>
+                {% if current_user.is_authenticated %}
+                    {% for task in task_list %}
+                        {% if task.user.id == current_user.id %}
+                <tr>
+                    <td id="do" class="add">
+                        {% if task.marked_complete %}
+                            <strike>
+                        {% endif %}
+
+                        {{ task.tasks }}
+                        {% if task.marked_complete %}
+                            </strike>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="strike ml-2 btn btn-outline-success btn-sm" href="{{ current_user.id }}/completed/{{ task.id }}">
+                            Mark as Done
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-outline-danger btn-sm" href="{{ current_user.id }}/delete-task/{{ task.id }}">
+                            Delete
+                        </a>
+                    </td>
+                    <td>
+                        <form class="md-form" action="{{ current_user.id }}/edit-task/{{ task.id }}" method = "POST">
+                            <input class="update" type="text" placeholder="Enter to Update Task" name="edit_task" required>
+                            <input class="ml-2 mt-0 btn btn-outline-dark btn-sm" type = "submit" value = "Update">
+                        </form>
+                    </td>
+                        {% else %}
+                            <p>NOT AUTHORISED!</p>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+
+{% endblock %}

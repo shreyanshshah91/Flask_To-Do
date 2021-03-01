@@ -1,0 +1,28 @@
+.strikes{
+    color: grey;
+}
+
+.tab{
+    border: none;
+    border-bottom: 1px solid gray;
+    font-family: "Berlin Sans FB Demi";
+}
+
+.update{
+    border: none;
+    border-bottom: 1px solid gray;
+    font-family: "Bitstream Vera Sans Mono";
+}
+
+.add{
+    font-family: "Bitstream Vera Sans Mono";
+    font-size: 1.1rem;
+}
+
+.add:hover{
+    color: darkcyan;
+}
+
+.homepage{
+    color: darkcyan;
+}
